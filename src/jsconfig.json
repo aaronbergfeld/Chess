@@ -3,5 +3,5 @@
     "*.js",
     "libraries/*.js",
     "c:\\Users\\aaron\\.vscode\\extensions\\samplavigne.p5-vscode-1.2.6\\p5types\\global.d.ts"
-, "src/board.js"  ]
+, "src/js/board.js", "src/sketch.js"  ]
 }
