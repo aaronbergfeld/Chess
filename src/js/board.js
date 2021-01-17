@@ -6,7 +6,7 @@ class Board {
   grid = [];
   boardSize = window.innerHeight - offset;
   chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-  nums = ['1', '2', '3', '4', '5', '6', '7', '8'];
+  nums =  ['8', '7', '6', '5', '4', '3', '2', '1'];
 
   init() {
     this.lightSquareColor = 255;
@@ -49,15 +49,15 @@ class Board {
 
   showLabels(){
     for (let i = 0; i < 8; i++) {
-      var num = nums[i];
+      var num = this.nums[i];
       var numX = offset/2;
       var numY = (height - offset)/8 * i + offset+5;
       text(num, numX, numY);
       
-      var char = chars[i];
+      var char = this.chars[i];
       var charX = (width - offset)/8 * i + offset*2 - 5;
       var charY = height - offset/2 + 10
-      text(char, charX, charY)
+      text(char, charX, charY);
     }
   }
 
