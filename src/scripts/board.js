@@ -1,22 +1,27 @@
-var offset = 50;
-
 class Board {
-  darkSquareColor = null;
-  lightSquareColor = null;
+  lightSquareColor = 255;
+  darkSquareColor = 75;
   grid = [];
   boardSize = window.innerHeight - offset;
   chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-  nums =  ['8', '7', '6', '5', '4', '3', '2', '1'];
+  nums =  [];
 
-  init() {
-    this.lightSquareColor = 255;
-    this.darkSquareColor = 0;
+  constructor() {
+    
+    // Create array of numbers 1-8 as strings
+
+    for(var i = 1; i <= 8; i ++) {
+      this.nums.push(i.toString());
+    }
+
+    // instantiate checkerboard using an 8x8 array of BoardSquare objects
 
     for (var y = 0; y < 8; y++) {
+      var row = [];
       for (let x = 0; x < 8; x++) {
         var boxX = this.boardSize / 8 * x + offset;
-        var boxY = this.boardSize / 8 * y;
-        var coord = this.nums[x] + this.chars[y];
+        var boxY = this.boardSize / 8 * (7 - y);
+        var coord = this.nums[y] + this.chars[x];
         var color;
 
         var yIsEven = y % 2 == 0;
@@ -31,25 +36,22 @@ class Board {
         } else {
           color = this.darkSquareColor;
         }
-
-        this.grid.push(new ChessSquare(coord, boxX, boxY, color));
-
+        row.push(new BoardSquare(coord, [boxX, boxY], color));
       }
+      this.grid.push(row);
     }
+  }
 
-    for (let i = 0; i < this.chars.length; i++) {
-      const element = this.chars[i];
-      var charX = 25;
-      var charY = this.boardSize / 8 * i + ChessSquare.size / 2;
-      textSize(32);
-      fill(0);
-      text(element, charX, charY);
-    }
+
+
+  setSquareColors(lightSquareColor, darkSquareColor) {
+    this.lightSquareColor = lightSquareColor;
+    this.darkSquareColor = darkSquareColor;
   }
 
   showLabels(){
     for (let i = 0; i < 8; i++) {
-      var num = this.nums[i];
+      var num = this.nums[7 - i];
       var numX = offset/2;
       var numY = (height - offset)/8 * i + offset+5;
       text(num, numX, numY);
@@ -62,24 +64,25 @@ class Board {
   }
 
   display() {
-    for (let square = 0; square < this.grid.length; square++) {
-      const element = this.grid[square];
-      element.display();
+    for (let y = 0; y < this.grid.length; y++) {
+      for (let x = 0; x < this.grid[y].length; x ++) {
+        const element = this.grid[y][x];
+        element.display();
+      }
     }
   }
 }
 
-class ChessSquare {
+class BoardSquare {
   size = (window.innerHeight - offset) / 8;
-  constructor(coord, x = null, y = null, color = null) {
+  constructor(name, coord = [], color = null) {
+    this.name = name;
     this.coord = coord;
-    this.x = x;
-    this.y = y;
     this.color = color;
   }
 
   display() {
     fill(this.color);
-    square(this.x, this.y, this.size);
+    square(this.coord[0], this.coord[1], this.size);
   }
 }
