@@ -3,16 +3,21 @@ class Player{
     peiceInHand = null;
 
     pickUp(peice){
-        while (mouseIsPressed) {
-            this.isHoldingPeice = true;
-            this.peiceInHand = peice;
-            peice.isPickedUp = true;
-        }
-            this.isHoldingPeice = false;
-            this.peiceInHand = null;
-            peice.isPickedUp = false;
+        this.isHoldingPeice = true;
+        this.peiceInHand = peice;
+        peice.isPickedUp = true;   
     }
 
+    movePeice(){
+        this.peiceInHand.x = mouseX;
+        this.peiceInHand.y = mouseY;
+    }
+
+    drop(peice){
+        this.isHoldingPeice = false;
+        this.peiceInHand = null;
+        peice.isPickedUp = false;
+    }
 
     checkIfHolding(){
         for (let index = 0; index < whitePawns.length; index++) {
@@ -22,12 +27,15 @@ class Player{
             } else if (this.isHoldingPeice) {
                 this.peiceInHand.isPickedUp = false;
                 this.isHoldingPeice = false;
-                console.log("test")
+                console.log("test");
             }
         }
     }
 
-    do(){
-        
+    action(){
+        if (this.isHoldingPeice) {
+            this.movePeice();
+            console.log("wtf");
+        }
     }
 }

@@ -22,13 +22,6 @@ class Peice {
         imageMode(CENTER);
         image(this.image, this.x, this.y, this.size, this.size);
         this.underMouse = (mouseX > this.x - this.size/2) && (mouseX < this.x + this.size/2) && (mouseY > this.y - this.size/2) && (mouseY < this.y + this.size/2);
-        console.log(this, this.underMouse);
-
-        if (this.isPickedUp){
-            this.x = mouseX;
-            this.y = mouseY;
-        }
-
     }
 }
 

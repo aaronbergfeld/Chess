@@ -25,8 +25,6 @@ function setup() {
 function draw() {
   background(209, 217, 230);
 
-  // player.do();
-
   gameBoard.display();
   gameBoard.showLabels();
 
@@ -34,15 +32,20 @@ function draw() {
     const pawn = whitePawns[i];
     pawn.display();
   }
+
+  player.action();
 }
 
-function mousePressed(){
-  // for (let index = 0; index < whitePawns.length; index++) {
-  //   const pawn = whitePawns[index];
-  //   if (pawn.underMouse) {
-  //       player.pickUp(pawn);
-  //   }
-  // }
+function mouseClicked(){
+  for (let index = 0; index < whitePawns.length; index++) {
+      const pawn = whitePawns[index];
+      if (pawn.underMouse && player.isHoldingPeice == false) {
+          player.pickUp(pawn);
+          console.log(player.peiceInHand, player.isHoldingPeice)
+      } else if (player.isHoldingPeice && player.peiceInHand == pawn) {
+          player.drop(pawn);
+      }
+  }
 }
 
 
