@@ -5,10 +5,10 @@ class Player{
     pickUp(peice){
         this.isHoldingPeice = true;
         this.peiceInHand = peice;
-        peice.isPickedUp = true;   
+        peice.isPickedUp = true;
     }
 
-    movePeice(){
+    move(peice){
         this.peiceInHand.x = mouseX;
         this.peiceInHand.y = mouseY;
     }
@@ -19,23 +19,23 @@ class Player{
         peice.isPickedUp = false;
     }
 
-    checkIfHolding(){
+    checkForPickup(){
         for (let index = 0; index < whitePawns.length; index++) {
-        const pawn = whitePawns[index];
-            if (!this.isHoldingPeice && (mouseX > pawn.x - pawn.size/2) && (mouseX < pawn.x + pawn.size/2) && (mouseY > pawn.y - pawn.size/2) && (mouseY < pawn.y + pawn.size/2)) {
-                this.pickUp(pawn);         
-            } else if (this.isHoldingPeice) {
-                this.peiceInHand.isPickedUp = false;
-                this.isHoldingPeice = false;
-                console.log("test");
-            }
+            var pawn = whitePawns[index];
+          if (pawn.underMouse && player.isHoldingPeice == false) {
+              whitePawns.splice(index, 1);
+              whitePawns.push(pawn);
+              player.pickUp(pawn);
+              console.log(player.peiceInHand, player.isHoldingPeice);
+              break
+      
+          }
+          else if (player.isHoldingPeice && player.peiceInHand == pawn) {
+            player.drop(player.peiceInHand);
+          }
         }
     }
 
     action(){
-        if (this.isHoldingPeice) {
-            this.movePeice();
-            console.log("wtf");
-        }
     }
 }
