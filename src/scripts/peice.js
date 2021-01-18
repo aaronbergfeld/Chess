@@ -18,6 +18,10 @@ class Peice {
         this.y = this.boardSquare.coord[1] + (squareSize / 2);
     }
 
+    // showOnTop(peice){
+        
+    // }
+
     display() {
         imageMode(CENTER);
         image(this.image, this.x, this.y, this.size, this.size);
