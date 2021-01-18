@@ -37,12 +37,12 @@ function draw() {
 }
 
 function mousePressed(){
-  for (let index = 0; index < whitePawns.length; index++) {
-    const pawn = whitePawns[index];
-    if (pawn.underMouse) {
-        player.pickUp(pawn);
-    }
-  }
+  // for (let index = 0; index < whitePawns.length; index++) {
+  //   const pawn = whitePawns[index];
+  //   if (pawn.underMouse) {
+  //       player.pickUp(pawn);
+  //   }
+  // }
 }
 
 
