@@ -2,7 +2,7 @@ class Board {
   lightSquareColor = 255;
   darkSquareColor = 75;
   grid = [];
-  boardSize = window.innerHeight - offset;
+  boardSize = viewHeight - offset;
   chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   nums =  [];
 
@@ -74,7 +74,6 @@ class Board {
 }
 
 class BoardSquare {
-  size = (window.innerHeight - offset) / 8;
   constructor(name, coord = [], color = null) {
     this.name = name;
     this.coord = coord;
@@ -83,6 +82,6 @@ class BoardSquare {
 
   display() {
     fill(this.color);
-    square(this.coord[0], this.coord[1], this.size);
+    square(this.coord[0], this.coord[1], squareSize);
   }
 }
