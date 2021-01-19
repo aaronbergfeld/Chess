@@ -40,19 +40,17 @@ class Player{
     }
 
     checkForPickup(){
-        for (let index = 0; index < whitePawns.length; index++) {
-            var pawn = whitePawns[index];
-          if (pawn.underMouse && player.isHoldingPeice == false) {
-              whitePawns.splice(index, 1);
-              whitePawns.push(pawn);
-              player.pickUp(pawn);
-              console.log(player.peiceInHand, player.isHoldingPeice);
-              break
-      
-          }
-          else if (player.isHoldingPeice && player.peiceInHand == pawn) {
-            player.drop(player.peiceInHand);
-          }
+        for (let index = 0; index < gameBoard.peices.length; index++) {
+            var pawn = gameBoard.peices[index];
+            if (pawn.underMouse && player.isHoldingPeice == false) {
+                gameBoard.peices.splice(index, 1);
+                gameBoard.peices.push(pawn);
+                player.pickUp(pawn);
+                break
+            }
+            else if (player.isHoldingPeice && player.peiceInHand == pawn) {
+                player.drop(player.peiceInHand);
+            }
         }
     }
 

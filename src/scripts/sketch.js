@@ -5,19 +5,14 @@ var squareSize = (viewHeight - offset) / 8;
 var gameBoard = new Board();
 var player = new Player();
 
-var whitePawns = [];
-
-for (let i = 0; i < 8; i++) {
-  whitePawns.push(new Pawn([i, 1], "white"));
-} 
-
 function setup() {
   createCanvas(viewHeight, viewHeight);
   textAlign(CENTER);
   textSize(32);
-  for (let i = 0; i < whitePawns.length; i++) {
-    const pawn = whitePawns[i];
-    pawn.load();
+  gameBoard.setupPeices();
+  for (let i = 0; i < gameBoard.peices.length; i++) {
+    const peice = gameBoard.peices[i];
+    peice.load();
   }
 }
 
@@ -28,9 +23,9 @@ function draw() {
   gameBoard.display();
   gameBoard.showLabels();
 
-  for (let i = 0; i < whitePawns.length; i++) {
-    const pawn = whitePawns[i];
-    pawn.display();
+  for (let i = 0; i < gameBoard.peices.length; i++) {
+    const peice = gameBoard.peices[i];
+    peice.display();
   }
 
   player.do();

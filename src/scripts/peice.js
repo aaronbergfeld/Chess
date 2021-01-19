@@ -15,12 +15,20 @@ class Peice {
     isPickedUp = false;
     underMouse = false;
 
-    load() {
+    constructor(coordinates, color) {
+        var gridX = coordinates[0];
+        var gridY = coordinates[1];
+        this.boardSquare = gameBoard.grid[gridY][gridX];
+        this.boardSquare.hasPeice = true;
+        this.color = color;
         this.centerX = this.boardSquare.x + (squareSize / 2);
         this.centerY = this.boardSquare.y + (squareSize / 2);
-        this.image = loadImage(this.source);
         this.x = this.centerX;
         this.y = this.centerY;
+    }
+
+    load() {
+        this.image = loadImage(this.source);
     }
 
     // showOnTop(peice){
@@ -35,15 +43,63 @@ class Peice {
 }
 
 class Pawn extends Peice {
-    constructor(coordinates = [], color, source = '') {
-        super(source, coordinates, color);
+    constructor(coordinates, color) {
+        super(coordinates, color);
 
-        var x = coordinates[0];
-        var y = coordinates[1];
-        this.boardSquare = gameBoard.grid[y][x];
-        this.boardSquare.hasPeice = true;
-        this.color = color;
         this.peiceType = "pawn"
-        this.source = `src/assets/peices/${color}/pawn.png`
+        this.source = `src/assets/peices/${color}/${this.peiceType}.png`
     }
 }
+
+class Knight extends Peice {
+    constructor(coordinates, color) {
+        super(coordinates, color);
+
+        this.peiceType = "knight"
+        this.source = `src/assets/peices/${color}/${this.peiceType}.png`
+    }
+}
+
+class Rook extends Peice {
+constructor(coordinates, color) {
+        super(coordinates, color);
+
+        this.peiceType = "rook"
+        this.source = `src/assets/peices/${color}/${this.peiceType}.png`
+    }
+}
+
+class Bishop extends Peice {
+constructor(coordinates, color) {
+        super(coordinates, color);
+
+        this.peiceType = "bishop"
+        this.source = `src/assets/peices/${color}/${this.peiceType}.png`
+    }
+}
+
+class Queen extends Peice {
+constructor(coordinates, color) {
+        super(coordinates, color);
+
+        this.peiceType = "queen"
+        this.source = `src/assets/peices/${color}/${this.peiceType}.png`
+    }
+}
+
+class King extends Peice {
+constructor(coordinates, color) {
+        super(coordinates, color);
+
+        this.peiceType = "king"
+        this.source = `src/assets/peices/${color}/${this.peiceType}.png`
+    }
+}
+
+
+
+
+
+
+
+
