@@ -4,7 +4,10 @@ class Peice {
     color;
     boardSquare;
     peiceType;
+    coordinates;
     x;
+    centerY;
+    centerX;
     y;
 
     size = squareSize - (squareSize / 6);
@@ -13,9 +16,11 @@ class Peice {
     underMouse = false;
 
     load() {
+        this.centerX = this.boardSquare.x + (squareSize / 2);
+        this.centerY = this.boardSquare.y + (squareSize / 2);
         this.image = loadImage(this.source);
-        this.x = this.boardSquare.coord[0] + (squareSize / 2);
-        this.y = this.boardSquare.coord[1] + (squareSize / 2);
+        this.x = this.centerX;
+        this.y = this.centerY;
     }
 
     // showOnTop(peice){
@@ -36,6 +41,7 @@ class Pawn extends Peice {
         var x = coordinates[0];
         var y = coordinates[1];
         this.boardSquare = gameBoard.grid[y][x];
+        this.boardSquare.hasPeice = true;
         this.color = color;
         this.peiceType = "pawn"
         this.source = `src/assets/peices/${color}/pawn.png`

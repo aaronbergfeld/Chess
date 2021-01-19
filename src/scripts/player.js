@@ -6,6 +6,7 @@ class Player{
         this.isHoldingPeice = true;
         this.peiceInHand = peice;
         peice.isPickedUp = true;
+        peice.boardSquare.hasPeice = false;
     }
 
     move(peice){
@@ -14,9 +15,28 @@ class Player{
     }
 
     drop(peice){
-        this.isHoldingPeice = false;
-        this.peiceInHand = null;
-        peice.isPickedUp = false;
+        for (let y = 0; y < gameBoard.grid.length; y++) {
+            for (let x = 0; x < gameBoard.grid[y].length; x++) {
+                const boardSquare = gameBoard.grid[y][x];
+                if (boardSquare.isUnder) {
+                    if (boardSquare.hasPeice) {
+                        peice.x = peice.centerX;
+                        peice.y = peice.centerY;
+                        this.isHoldingPeice = false;
+                        this.peiceInHand = null;
+                        peice.isPickedUp = false;
+                    } else {
+                        peice.x = boardSquare.x + (squareSize / 2);
+                        peice.y = boardSquare.y + (squareSize / 2);
+                        peice.coordinates = boardSquare.coordinates;
+                        boardSquare.hasPeice = true;
+                        peice.boardSquare = boardSquare;
+                        this.isHoldingPeice = false;
+                        this.peiceInHand = null;
+                        peice.isPickedUp = false;} 
+                }
+            }
+        }
     }
 
     checkForPickup(){
@@ -36,6 +56,8 @@ class Player{
         }
     }
 
-    action(){
+    do(){
+        if (player.isHoldingPeice)
+        player.move();
     }
 }

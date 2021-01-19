@@ -36,7 +36,7 @@ class Board {
         } else {
           color = this.darkSquareColor;
         }
-        row.push(new BoardSquare(coord, [boxX, boxY], color));
+        row.push(new BoardSquare(coord, boxX, boxY, [x, y],color));
       }
       this.grid.push(row);
     }
@@ -74,14 +74,23 @@ class Board {
 }
 
 class BoardSquare {
-  constructor(name, coord = [], color = null) {
+  constructor(name, x, y, coordinates, color) {
     this.name = name;
-    this.coord = coord;
+    this.coordinates = this.coordinates;
     this.color = color;
+    this.x = x;
+    this.y = y;
+    this.hasPeice = false
+    this.isUnder;
+    
+
+
   }
 
   display() {
+    this.isUnder = (mouseX > this.x) && (mouseX < this.x + squareSize) && (mouseY > this.y) && (mouseY < this.y + squareSize);
+
     fill(this.color);
-    square(this.coord[0], this.coord[1], squareSize);
+    square(this.x, this.y, squareSize);
   }
 }

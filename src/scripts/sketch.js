@@ -33,8 +33,7 @@ function draw() {
     pawn.display();
   }
 
-  if (player.isHoldingPeice)
-    player.move();
+  player.do();
 }
 
 function mouseClicked(){
