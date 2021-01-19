@@ -91,6 +91,11 @@ class Board {
     // ***** Kings******
     this.pieces.push(new King([4, 7], "black"));
     this.pieces.push(new King([4, 0], "white"));
+    // Load Images
+    for (let i = 0; i < gameBoard.pieces.length; i++) {
+      const piece = gameBoard.pieces[i];
+      piece.load();
+    }
   }
 
   display() {
@@ -106,11 +111,12 @@ class Board {
 class BoardSquare {
   constructor(name, x, y, coordinates, color) {
     this.name = name;
-    this.coordinates = this.coordinates;
+    this.coordinates = coordinates;
     this.color = color;
     this.x = x;
     this.y = y;
-    this.hasPiece = false
+    this.hasPiece = false;
+    this.containsPiece = null
     this.isUnder;
     
 

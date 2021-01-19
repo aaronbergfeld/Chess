@@ -19,17 +19,23 @@ class Player{
             for (let x = 0; x < gameBoard.grid[y].length; x++) {
                 const boardSquare = gameBoard.grid[y][x];
                 if (boardSquare.isUnder) {
-                    if (boardSquare.hasPiece) {
+                    if (!piece.validMove(boardSquare)) {
                         piece.x = piece.centerX;
                         piece.y = piece.centerY;
                         this.isHoldingPiece = false;
                         this.pieceInHand = null;
                         piece.isPickedUp = false;
+                        piece.boardSquare.hasPiece = true;
                     } else {
-                        piece.x = boardSquare.x + (squareSize / 2);
-                        piece.y = boardSquare.y + (squareSize / 2);
+                        piece.centerX = boardSquare.x + (squareSize/2);
+                        piece.centerY = boardSquare.y + (squareSize/2) ;
+                        piece.x = piece.centerX;
+                        piece.y = piece.centerY;
                         piece.coordinates = boardSquare.coordinates;
+                        piece.boardSquare.containsPiece = null;
+                        piece.boardSquare.hasPiece = false;
                         boardSquare.hasPiece = true;
+                        boardSquare.containsPiece = piece;
                         piece.boardSquare = boardSquare;
                         this.isHoldingPiece = false;
                         this.pieceInHand = null;
@@ -47,9 +53,6 @@ class Player{
                 gameBoard.pieces.push(pawn);
                 player.pickUp(pawn);
                 break
-            }
-            else if (player.isHoldingPiece && player.pieceInHand == pawn) {
-                player.drop(player.pieceInHand);
             }
         }
     }

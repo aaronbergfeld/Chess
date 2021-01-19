@@ -10,10 +10,6 @@ function setup() {
   textAlign(CENTER);
   textSize(32);
   gameBoard.setupPieces();
-  for (let i = 0; i < gameBoard.pieces.length; i++) {
-    const piece = gameBoard.pieces[i];
-    piece.load();
-  }
 }
 
 
@@ -31,7 +27,13 @@ function draw() {
   player.do();
 }
 
-function mouseClicked(){
+function mousePressed(){
   player.checkForPickup();
+}
+
+function mouseReleased(){
+    if (player.isHoldingPiece) {
+      player.drop(player.pieceInHand);
+  }
 }
 

@@ -20,6 +20,7 @@ class Piece {
         var gridY = coordinates[1];
         this.boardSquare = gameBoard.grid[gridY][gridX];
         this.boardSquare.hasPiece = true;
+        this.boardSquare.containsPiece = this;
         this.color = color;
         this.centerX = this.boardSquare.x + (squareSize / 2);
         this.centerY = this.boardSquare.y + (squareSize / 2);
@@ -31,9 +32,13 @@ class Piece {
         this.image = loadImage(this.source);
     }
 
-    // showOnTop(piece){
-        
-    // }
+    capture(){
+        for (let i = 0; i < gameBoard.pieces.length; i++) {
+            const piece = gameBoard.pieces[i];
+            if (piece == this)
+                gameBoard.pieces.splice(i, 1);
+        }
+    }
 
     display() {
         imageMode(CENTER);
@@ -48,6 +53,23 @@ class Pawn extends Piece {
 
         this.pieceType = "pawn"
         this.source = `src/assets/pieces/${color}/${this.pieceType}.png`
+    }
+
+    validMove(newBoardSquare){
+        var newCoords = newBoardSquare.coordinates;
+        var oldX = this.boardSquare.coordinates[0];
+        var oldY = this.boardSquare.coordinates[1];
+        var mod = this.color == "white" ? 1 : -1;
+        if (newCoords.equals([oldX, oldY+mod]) && !newBoardSquare.hasPiece){
+            return true
+        } else if ((newBoardSquare.containsPiece != null && newBoardSquare.containsPiece.color != this.color) && (newCoords.equals([oldX+1, oldY+mod]) || newCoords.equals([oldX-1, oldY+mod]))){
+            const enemyPiece = newBoardSquare.containsPiece;
+            enemyPiece.captured = true;
+            enemyPiece.capture();
+            return true
+        } else {
+            return false
+        }
     }
 }
 
@@ -96,7 +118,32 @@ constructor(coordinates, color) {
     }
 }
 
+if(Array.prototype.equals)
+    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+// attach the .equals method to Array's prototype to call it on any array
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
 
+    // compare lengths - can save a lot of time 
+    if (this.length != array.length)
+        return false;
+
+    for (var i = 0, l=this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;       
+        }           
+        else if (this[i] != array[i]) { 
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;   
+        }           
+    }       
+    return true;
+}
 
 
 
