@@ -62,7 +62,7 @@ class Pawn extends Piece {
         var pawnJump = this.color == "white" ? 1 : 6;
         var mod1 = this.color == "white" ? 1 : -1;
         var mod2 = this.color == "white" ? 2 : -2;
-        if ((newCoords.equals([oldX, oldY+mod1]) || (oldY == pawnJump && newCoords.equals([oldX, oldY+mod2]))) && !newBoardSquare.hasPiece){
+        if ((newCoords.equals([oldX, oldY+mod1]) || (oldY == pawnJump && newCoords.equals([oldX, oldY+mod2]) && gameBoard.grid[oldY+mod1][oldX].hasPiece == false)) && !newBoardSquare.hasPiece){
             return true
         } else if ((newBoardSquare.containsPiece != null && newBoardSquare.containsPiece.color != this.color) && (newCoords.equals([oldX+1, oldY+mod1]) || newCoords.equals([oldX-1, oldY+mod1]))){
             const enemyPiece = newBoardSquare.containsPiece;
