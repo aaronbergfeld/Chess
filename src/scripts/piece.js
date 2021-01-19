@@ -59,10 +59,12 @@ class Pawn extends Piece {
         var newCoords = newBoardSquare.coordinates;
         var oldX = this.boardSquare.coordinates[0];
         var oldY = this.boardSquare.coordinates[1];
-        var mod = this.color == "white" ? 1 : -1;
-        if (newCoords.equals([oldX, oldY+mod]) && !newBoardSquare.hasPiece){
+        var pawnJump = this.color == "white" ? 1 : 6;
+        var mod1 = this.color == "white" ? 1 : -1;
+        var mod2 = this.color == "white" ? 2 : -2;
+        if ((newCoords.equals([oldX, oldY+mod1]) || (oldY == pawnJump && newCoords.equals([oldX, oldY+mod2]))) && !newBoardSquare.hasPiece){
             return true
-        } else if ((newBoardSquare.containsPiece != null && newBoardSquare.containsPiece.color != this.color) && (newCoords.equals([oldX+1, oldY+mod]) || newCoords.equals([oldX-1, oldY+mod]))){
+        } else if ((newBoardSquare.containsPiece != null && newBoardSquare.containsPiece.color != this.color) && (newCoords.equals([oldX+1, oldY+mod1]) || newCoords.equals([oldX-1, oldY+mod1]))){
             const enemyPiece = newBoardSquare.containsPiece;
             enemyPiece.captured = true;
             enemyPiece.capture();
