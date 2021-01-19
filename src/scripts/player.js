@@ -1,61 +1,61 @@
 class Player{
-    isHoldingPeice = false;
-    peiceInHand = null;
+    isHoldingPiece = false;
+    pieceInHand = null;
 
-    pickUp(peice){
-        this.isHoldingPeice = true;
-        this.peiceInHand = peice;
-        peice.isPickedUp = true;
-        peice.boardSquare.hasPeice = false;
+    pickUp(piece){
+        this.isHoldingPiece = true;
+        this.pieceInHand = piece;
+        piece.isPickedUp = true;
+        piece.boardSquare.hasPiece = false;
     }
 
-    move(peice){
-        this.peiceInHand.x = mouseX;
-        this.peiceInHand.y = mouseY;
+    move(piece){
+        this.pieceInHand.x = mouseX;
+        this.pieceInHand.y = mouseY;
     }
 
-    drop(peice){
+    drop(piece){
         for (let y = 0; y < gameBoard.grid.length; y++) {
             for (let x = 0; x < gameBoard.grid[y].length; x++) {
                 const boardSquare = gameBoard.grid[y][x];
                 if (boardSquare.isUnder) {
-                    if (boardSquare.hasPeice) {
-                        peice.x = peice.centerX;
-                        peice.y = peice.centerY;
-                        this.isHoldingPeice = false;
-                        this.peiceInHand = null;
-                        peice.isPickedUp = false;
+                    if (boardSquare.hasPiece) {
+                        piece.x = piece.centerX;
+                        piece.y = piece.centerY;
+                        this.isHoldingPiece = false;
+                        this.pieceInHand = null;
+                        piece.isPickedUp = false;
                     } else {
-                        peice.x = boardSquare.x + (squareSize / 2);
-                        peice.y = boardSquare.y + (squareSize / 2);
-                        peice.coordinates = boardSquare.coordinates;
-                        boardSquare.hasPeice = true;
-                        peice.boardSquare = boardSquare;
-                        this.isHoldingPeice = false;
-                        this.peiceInHand = null;
-                        peice.isPickedUp = false;} 
+                        piece.x = boardSquare.x + (squareSize / 2);
+                        piece.y = boardSquare.y + (squareSize / 2);
+                        piece.coordinates = boardSquare.coordinates;
+                        boardSquare.hasPiece = true;
+                        piece.boardSquare = boardSquare;
+                        this.isHoldingPiece = false;
+                        this.pieceInHand = null;
+                        piece.isPickedUp = false;} 
                 }
             }
         }
     }
 
     checkForPickup(){
-        for (let index = 0; index < gameBoard.peices.length; index++) {
-            var pawn = gameBoard.peices[index];
-            if (pawn.underMouse && player.isHoldingPeice == false) {
-                gameBoard.peices.splice(index, 1);
-                gameBoard.peices.push(pawn);
+        for (let index = 0; index < gameBoard.pieces.length; index++) {
+            var pawn = gameBoard.pieces[index];
+            if (pawn.underMouse && player.isHoldingPiece == false) {
+                gameBoard.pieces.splice(index, 1);
+                gameBoard.pieces.push(pawn);
                 player.pickUp(pawn);
                 break
             }
-            else if (player.isHoldingPeice && player.peiceInHand == pawn) {
-                player.drop(player.peiceInHand);
+            else if (player.isHoldingPiece && player.pieceInHand == pawn) {
+                player.drop(player.pieceInHand);
             }
         }
     }
 
     do(){
-        if (player.isHoldingPeice)
+        if (player.isHoldingPiece)
         player.move();
     }
 }

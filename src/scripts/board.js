@@ -5,7 +5,7 @@ class Board {
   boardSize = viewHeight - offset;
   chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   nums =  [];
-  peices = [];
+  pieces = [];
 
   constructor() {
     
@@ -64,33 +64,33 @@ class Board {
     }
   }
 
-  setupPeices(){
+  setupPieces(){
     // ***** Pawns *****
     for (let i = 0; i < 8; i++) {
-      this.peices.push(new Pawn([i, 1], "white"));
-      this.peices.push(new Pawn([i, 6], "black"));
+      this.pieces.push(new Pawn([i, 1], "white"));
+      this.pieces.push(new Pawn([i, 6], "black"));
     } 
     // ***** Knights *****
-    this.peices.push(new Knight([2, 0], "white"));
-    this.peices.push(new Knight([2, 7], "black"));
-    this.peices.push(new Knight([5, 0], "white"));
-    this.peices.push(new Knight([5, 7], "black"));
+    this.pieces.push(new Knight([2, 0], "white"));
+    this.pieces.push(new Knight([2, 7], "black"));
+    this.pieces.push(new Knight([5, 0], "white"));
+    this.pieces.push(new Knight([5, 7], "black"));
     // ***** Bishops *****
-    this.peices.push(new Bishop([1, 0], "white"));
-    this.peices.push(new Bishop([1, 7], "black"));
-    this.peices.push(new Bishop([6, 0], "white"));
-    this.peices.push(new Bishop([6, 7], "black"));
+    this.pieces.push(new Bishop([1, 0], "white"));
+    this.pieces.push(new Bishop([1, 7], "black"));
+    this.pieces.push(new Bishop([6, 0], "white"));
+    this.pieces.push(new Bishop([6, 7], "black"));
     // ***** Rooks *****
-    this.peices.push(new Rook([0, 0], "white"));
-    this.peices.push(new Rook([0, 7], "black"));
-    this.peices.push(new Rook([7, 0], "white"));
-    this.peices.push(new Rook([7, 7], "black"));
+    this.pieces.push(new Rook([0, 0], "white"));
+    this.pieces.push(new Rook([0, 7], "black"));
+    this.pieces.push(new Rook([7, 0], "white"));
+    this.pieces.push(new Rook([7, 7], "black"));
     // ***** Queens *****
-    this.peices.push(new Queen([3, 7], "black"));
-    this.peices.push(new Queen([3, 0], "white"));
+    this.pieces.push(new Queen([3, 7], "black"));
+    this.pieces.push(new Queen([3, 0], "white"));
     // ***** Kings******
-    this.peices.push(new King([4, 7], "black"));
-    this.peices.push(new King([4, 0], "white"));
+    this.pieces.push(new King([4, 7], "black"));
+    this.pieces.push(new King([4, 0], "white"));
   }
 
   display() {
@@ -110,7 +110,7 @@ class BoardSquare {
     this.color = color;
     this.x = x;
     this.y = y;
-    this.hasPeice = false
+    this.hasPiece = false
     this.isUnder;
     
 

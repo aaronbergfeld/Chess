@@ -9,10 +9,10 @@ function setup() {
   createCanvas(viewHeight, viewHeight);
   textAlign(CENTER);
   textSize(32);
-  gameBoard.setupPeices();
-  for (let i = 0; i < gameBoard.peices.length; i++) {
-    const peice = gameBoard.peices[i];
-    peice.load();
+  gameBoard.setupPieces();
+  for (let i = 0; i < gameBoard.pieces.length; i++) {
+    const piece = gameBoard.pieces[i];
+    piece.load();
   }
 }
 
@@ -23,9 +23,9 @@ function draw() {
   gameBoard.display();
   gameBoard.showLabels();
 
-  for (let i = 0; i < gameBoard.peices.length; i++) {
-    const peice = gameBoard.peices[i];
-    peice.display();
+  for (let i = 0; i < gameBoard.pieces.length; i++) {
+    const piece = gameBoard.pieces[i];
+    piece.display();
   }
 
   player.do();
