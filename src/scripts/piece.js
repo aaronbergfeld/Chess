@@ -126,12 +126,39 @@ constructor(coordinates, color) {
         var oldY = this.coordinates[1];
         var newX = newCoords[0];
         var newY = newCoords[1];
-
-        if (newX == oldX){
-            for(var i = oldY; i < newY; i++){
-                var checkSquare = gameBoard.grid[i][oldX];
-                if (checkSquare.hasPiece) return false;
+        
+        function vertIsClear(){
+            if (newY > oldY) {
+                for(var i = oldY; i < newY; i++) {
+                    var checkSquare = gameBoard.grid[i][oldX];
+                    if (checkSquare.hasPiece) return false;
+                }
+                return true
+            } else if (newY < oldY) {
+                for(var i = oldY; i > newY; i--) {
+                    var checkSquare = gameBoard.grid[i][oldX];
+                    if (checkSquare.hasPiece) return false;
+                }
+                return true
             }
+        }
+        
+        function horIsClear(){
+            if (newX > oldX) {
+                for(var i = oldX; i < newX; i++) {
+                    var checkSquare = gameBoard.grid[oldY][i];
+                    if (checkSquare.hasPiece) return false;
+                }
+            } else if (newX < oldX) {
+                for(var i = oldX; i > newX; i--) {
+                    var checkSquare = gameBoard.grid[oldY][i];
+                    if (checkSquare.hasPiece) return false;
+                }
+            }
+            return true
+        }
+
+        if (newX == oldX && vertIsClear()){
             if (otherPiece != null){
                 if (otherPiece.color != this.color) {
                     otherPiece.capture();
@@ -142,11 +169,9 @@ constructor(coordinates, color) {
             } else {
                 return true
             }
-        } else if (newY == oldY) {
-            for(var i = oldX; i < newX; i++) {
-                var checkSquare = gameBoard.grid[oldY][i];
-                if (checkSquare.hasPiece) return false;
-            }
+        } 
+        
+        else if (newY == oldY && horIsClear()) {
             if (otherPiece != null){
                 if (otherPiece.color != this.color) {
                     otherPiece.capture();
