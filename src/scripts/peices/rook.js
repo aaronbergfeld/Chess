@@ -15,8 +15,10 @@ class Rook extends Piece {
 
             if (newX == oldX && this.vertIsClear(newBoardSquare)){
                 return this.checkForPiece(newBoardSquare);
-            } else if (newY == oldY && this.horIsClear(newBoardSquare)) {
+            } 
+            else if (newY == oldY && this.horIsClear(newBoardSquare)) {
                 return this.checkForPiece(newBoardSquare);
-            } else return false;
+            } 
+            else return false;
         }
     }

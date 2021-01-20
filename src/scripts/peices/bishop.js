@@ -18,6 +18,7 @@ class Bishop extends Piece {
             }
             else if (oldY - newY == newX - oldX && this.negDiagIsClear(newBoardSquare)){
                 return this.checkForPiece(newBoardSquare);
-            }
+            } 
+            else return false
         }
     }
