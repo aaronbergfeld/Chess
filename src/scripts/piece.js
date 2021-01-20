@@ -62,11 +62,12 @@ class Pawn extends Piece {
         var oldX = this.coordinates[0];
         var oldY = this.coordinates[1];
         var pawnJump = this.color == "white" ? 1 : 6;
+        var otherPiece = newBoardSquare.containsPiece;
         
         if ((newCoords.equals([oldX, oldY+this.mod(1)]) || (oldY == pawnJump && newCoords.equals([oldX, oldY+this.mod(2)]) && gameBoard.grid[oldY+this.mod(1)][oldX].hasPiece == false)) && !newBoardSquare.hasPiece){
             return true
-        } else if ((newBoardSquare.containsPiece != null && newBoardSquare.containsPiece.color != this.color) && (newCoords.equals([oldX+1, oldY+this.mod(1)]) || newCoords.equals([oldX-1, oldY+this.mod(1)]))){
-            const enemyPiece = newBoardSquare.containsPiece;
+        } else if ((otherPiece != null && otherPiece.color != this.color) && (newCoords.equals([oldX+1, oldY+this.mod(1)]) || newCoords.equals([oldX-1, oldY+this.mod(1)]))){
+            const enemyPiece = otherPiece;
             enemyPiece.capture();
             return true
         } else {
@@ -87,6 +88,7 @@ class Knight extends Piece {
         var newCoords = newBoardSquare.coordinates;
         var oldX = this.coordinates[0];
         var oldY = this.coordinates[1];
+        var otherPiece = newBoardSquare.containsPiece;
         var knightMove = (newCoords.equals([oldX+1, oldY+2])) || 
                          (newCoords.equals([oldX-1, oldY+2])) || 
                          (newCoords.equals([oldX+1, oldY-2])) || 
@@ -95,18 +97,17 @@ class Knight extends Piece {
                          (newCoords.equals([oldX-2, oldY+1])) || 
                          (newCoords.equals([oldX+2, oldY-1])) || 
                          (newCoords.equals([oldX-2, oldY-1]));
-                         
-        if ((knightMove) && (newBoardSquare.containsPiece != null) && (newBoardSquare.containsPiece.color != this.color)){
-            newBoardSquare.containsPiece.capture();
-            return true
-        } else if ((knightMove) && (newBoardSquare.containsPiece != null) && (newBoardSquare.containsPiece.color == this.color)){
-            return false
-            
-        } else if (knightMove) {
-            return true
-        } else {
-            return false
-        }
+
+        if ((knightMove) && (otherPiece != null)){
+            if (otherPiece.color != this.color) {
+                otherPiece.capture();
+                return true
+            } 
+            else return false;
+        } 
+        else if (knightMove) return true;
+        else return false;
+        
     }
 }
 
@@ -116,6 +117,48 @@ constructor(coordinates, color) {
 
         this.pieceType = "rook"
         this.source = `src/assets/pieces/${color}/${this.pieceType}.png`
+    }
+
+    validMove(newBoardSquare){
+        var newCoords = newBoardSquare.coordinates;
+        var otherPiece = newBoardSquare.containsPiece;
+        var oldX = this.coordinates[0];
+        var oldY = this.coordinates[1];
+        var newX = newCoords[0];
+        var newY = newCoords[1];
+
+        if (newX == oldX){
+            for(var i = oldY; i < newY; i++){
+                var checkSquare = gameBoard.grid[i][oldX];
+                if (checkSquare.hasPiece) return false;
+            }
+            if (otherPiece != null){
+                if (otherPiece.color != this.color) {
+                    otherPiece.capture();
+                    return true
+                } else {
+                    return false
+                }  
+            } else {
+                return true
+            }
+        } else if (newY == oldY) {
+            for(var i = oldX; i < newX; i++) {
+                var checkSquare = gameBoard.grid[oldY][i];
+                if (checkSquare.hasPiece) return false;
+            }
+            if (otherPiece != null){
+                if (otherPiece.color != this.color) {
+                    otherPiece.capture();
+                    return true
+                } else {
+                    return false
+                }  
+            } else {
+                return true
+            }
+        }
+        else return false;
     }
 }
 
