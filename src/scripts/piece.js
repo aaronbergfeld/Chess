@@ -18,6 +18,7 @@ class Piece {
     constructor(coordinates, color) {
         var gridX = coordinates[0];
         var gridY = coordinates[1];
+        this.coordinates = coordinates;
         this.boardSquare = gameBoard.grid[gridY][gridX];
         this.boardSquare.hasPiece = true;
         this.boardSquare.containsPiece = this;
@@ -28,9 +29,7 @@ class Piece {
         this.y = this.centerY;
     }
 
-    load() {
-        this.image = loadImage(this.source);
-    }
+    load() {this.image = loadImage(this.source)}
 
     capture(){
         for (let i = 0; i < gameBoard.pieces.length; i++) {
@@ -38,7 +37,10 @@ class Piece {
             if (piece == this)
                 gameBoard.pieces.splice(i, 1);
         }
+        this.captured = true;
     }
+
+    mod(num) {return this.color == "white" ? num : num*-1}
 
     display() {
         imageMode(CENTER);
@@ -57,16 +59,14 @@ class Pawn extends Piece {
 
     validMove(newBoardSquare){
         var newCoords = newBoardSquare.coordinates;
-        var oldX = this.boardSquare.coordinates[0];
-        var oldY = this.boardSquare.coordinates[1];
+        var oldX = this.coordinates[0];
+        var oldY = this.coordinates[1];
         var pawnJump = this.color == "white" ? 1 : 6;
-        var mod1 = this.color == "white" ? 1 : -1;
-        var mod2 = this.color == "white" ? 2 : -2;
-        if ((newCoords.equals([oldX, oldY+mod1]) || (oldY == pawnJump && newCoords.equals([oldX, oldY+mod2]) && gameBoard.grid[oldY+mod1][oldX].hasPiece == false)) && !newBoardSquare.hasPiece){
+        
+        if ((newCoords.equals([oldX, oldY+this.mod(1)]) || (oldY == pawnJump && newCoords.equals([oldX, oldY+this.mod(2)]) && gameBoard.grid[oldY+this.mod(1)][oldX].hasPiece == false)) && !newBoardSquare.hasPiece){
             return true
-        } else if ((newBoardSquare.containsPiece != null && newBoardSquare.containsPiece.color != this.color) && (newCoords.equals([oldX+1, oldY+mod1]) || newCoords.equals([oldX-1, oldY+mod1]))){
+        } else if ((newBoardSquare.containsPiece != null && newBoardSquare.containsPiece.color != this.color) && (newCoords.equals([oldX+1, oldY+this.mod(1)]) || newCoords.equals([oldX-1, oldY+this.mod(1)]))){
             const enemyPiece = newBoardSquare.containsPiece;
-            enemyPiece.captured = true;
             enemyPiece.capture();
             return true
         } else {
@@ -81,6 +81,32 @@ class Knight extends Piece {
 
         this.pieceType = "knight"
         this.source = `src/assets/pieces/${color}/${this.pieceType}.png`
+    }
+
+    validMove(newBoardSquare){
+        var newCoords = newBoardSquare.coordinates;
+        var oldX = this.coordinates[0];
+        var oldY = this.coordinates[1];
+        var knightMove = (newCoords.equals([oldX+1, oldY+2])) || 
+                         (newCoords.equals([oldX-1, oldY+2])) || 
+                         (newCoords.equals([oldX+1, oldY-2])) || 
+                         (newCoords.equals([oldX-1, oldY-2])) || 
+                         (newCoords.equals([oldX+2, oldY+1])) || 
+                         (newCoords.equals([oldX-2, oldY+1])) || 
+                         (newCoords.equals([oldX+2, oldY-1])) || 
+                         (newCoords.equals([oldX-2, oldY-1]));
+                         
+        if ((knightMove) && (newBoardSquare.containsPiece != null) && (newBoardSquare.containsPiece.color != this.color)){
+            newBoardSquare.containsPiece.capture();
+            return true
+        } else if ((knightMove) && (newBoardSquare.containsPiece != null) && (newBoardSquare.containsPiece.color == this.color)){
+            return false
+            
+        } else if (knightMove) {
+            return true
+        } else {
+            return false
+        }
     }
 }
 

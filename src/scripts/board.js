@@ -43,8 +43,6 @@ class Board {
     }
   }
 
-
-
   setSquareColors(lightSquareColor, darkSquareColor) {
     this.lightSquareColor = lightSquareColor;
     this.darkSquareColor = darkSquareColor;
