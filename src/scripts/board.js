@@ -50,14 +50,15 @@ class Board {
 
   showLabels(){
     for (let i = 0; i < 8; i++) {
+      fill(255)
       var num = this.nums[7 - i];
       var numX = offset/2;
       var numY = (height - offset)/8 * i + offset+5;
       text(num, numX, numY);
       
       var char = this.chars[i];
-      var charX = (width - offset)/8 * i + offset*2 - 5;
-      var charY = height - offset/2 + 10
+      var charX = (viewHeight - offset)/8 * i + offset*2 - 5;
+      var charY = viewHeight - offset/2 + 10
       text(char, charX, charY);
     }
   }
@@ -69,15 +70,15 @@ class Board {
       this.pieces.push(new Pawn([i, 6], "black"));
     } 
     // ***** Knights *****
-    this.pieces.push(new Knight([2, 0], "white"));
-    this.pieces.push(new Knight([2, 7], "black"));
-    this.pieces.push(new Knight([5, 0], "white"));
-    this.pieces.push(new Knight([5, 7], "black"));
+    this.pieces.push(new Knight([1, 0], "white"));
+    this.pieces.push(new Knight([1, 7], "black"));
+    this.pieces.push(new Knight([6, 0], "white"));
+    this.pieces.push(new Knight([6, 7], "black"));
     // ***** Bishops *****
-    this.pieces.push(new Bishop([1, 0], "white"));
-    this.pieces.push(new Bishop([1, 7], "black"));
-    this.pieces.push(new Bishop([6, 0], "white"));
-    this.pieces.push(new Bishop([6, 7], "black"));
+    this.pieces.push(new Bishop([2, 0], "white"));
+    this.pieces.push(new Bishop([2, 7], "black"));
+    this.pieces.push(new Bishop([5, 0], "white"));
+    this.pieces.push(new Bishop([5, 7], "black"));
     // ***** Rooks *****
     this.pieces.push(new Rook([0, 0], "white"));
     this.pieces.push(new Rook([0, 7], "black"));

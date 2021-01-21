@@ -1,9 +1,10 @@
 class King extends Piece {
     constructor(coordinates, color) {
             super(coordinates, color);
-    
-            this.pieceType = "king"
-            this.source = `src/assets/pieces/${color}/${this.pieceType}.png`
+        
+            this.pieceType = "king";
+            this.source = `src/assets/pieces/${color}/${this.pieceType}.png`;
+            this.moved = false;
         }
 
         validMove(newBoardSquare) {
@@ -20,8 +21,26 @@ class King extends Piece {
                            (newCoords.equals([oldX-1, oldY])) || 
                            (newCoords.equals([oldX-1, oldY+1])) || 
                            (newCoords.equals([oldX, oldY+1]));
+            function checkForKing(newBoardSquare){
+                var grid = gameBoard.grid;
+                var radius = []
 
-            if (kingMove){
+                for (let y = -1; y < 1; y++){
+                    if (grid[newY + y] != undefined){
+                        for (let x = -1; x < 1; x++) {
+                            if (grid[newY + y][newX + x] != undefined){
+                                const checkSquare = grid[newY + y][newX + x];
+                                if (checkSquare.hasPiece && checkSquare.containsPiece.pieceType == "king")
+                                    return false
+                            }
+                        }
+                    }
+                }
+                return true
+            }
+            
+
+            if (kingMove && checkForKing(newBoardSquare)){
                 return this.checkForPiece(newBoardSquare);
             }
             else return false

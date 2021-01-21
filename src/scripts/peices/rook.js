@@ -2,8 +2,9 @@ class Rook extends Piece {
     constructor(coordinates, color) {
             super(coordinates, color);
     
-            this.pieceType = "rook"
-            this.source = `src/assets/pieces/${color}/${this.pieceType}.png`
+            this.pieceType = "rook";
+            this.source = `src/assets/pieces/${color}/${this.pieceType}.png`;
+            this.moved = false;
         }
         
         validMove(newBoardSquare){

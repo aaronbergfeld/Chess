@@ -6,6 +6,7 @@ class Player{
         this.isHoldingPiece = true;
         this.pieceInHand = piece;
         piece.isPickedUp = true;
+        piece.boardSquare.containsPiece = null;
         piece.boardSquare.hasPiece = false;
     }
 
@@ -24,6 +25,7 @@ class Player{
                         piece.y = piece.centerY;
                         this.isHoldingPiece = false;
                         this.pieceInHand = null;
+                        piece.boardSquare.containsPiece = piece;
                         piece.isPickedUp = false;
                         piece.boardSquare.hasPiece = true;
                     } else {
